@@ -74,8 +74,10 @@ function App() {
     calculateStudentsToMerge();
   }
 
-  function handleLinkClick(student: StudentToMerge) {
-    console.log(student);
+  function handleLinkClick(rowNumber: number) {
+    const nextStudentsToMerge = studentsToMerge.slice();
+    nextStudentsToMerge[rowNumber].IsOpened = true;
+    setStudentsToMerge(nextStudentsToMerge);
   }
 
   return (
@@ -93,7 +95,7 @@ function App() {
         <button onClick={() => handleGenerateClick()} disabled={schoolId === undefined || dataRows.length < 1}>Generate</button>
       </div>
       <div className="card">
-        <MergeList students={studentsToMerge} onLinkClick={(student: StudentToMerge) => handleLinkClick(student)}></MergeList>
+        <MergeList students={studentsToMerge} onLinkClick={(rowNumber: number) => handleLinkClick(rowNumber)}></MergeList>
       </div>
     </>
   )

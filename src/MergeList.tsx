@@ -2,32 +2,32 @@ import { StudentToMerge } from "./App";
 
 interface MergeListProps {
     students: StudentToMerge[];
-    onLinkClick: (student: StudentToMerge) => void
+    onLinkClick: (rowNumber: number) => void
 }
 
 export default function MergeList({students, onLinkClick}: MergeListProps ) {
 
     const tableRows = students.map((student, key) => {
         return (
-            <tr key={key}>
+            <tr key={key} className={student.IsOpened ? 'opened' : ''}>
                 <td>{student.Forename}</td>
                 <td>{student.Surname}</td>
                 <td>{student.DateOfBirth}</td>
                 <td>{student.MISStudentId}</td>
                 <td>{student.MergeIntoId}</td>
-                <td><a href={student.Link()} target="_blank" onClick={() => onLinkClick(student)}>Open</a></td>
+                <td><a href={student.Link()} target="_blank" onClick={() => onLinkClick(key)}>Open</a></td>
             </tr>
         );
     });
 
     return (<>
         <tr>
-            <td>Forename</td>
-            <td>Surname</td>
-            <td>Date of Birth</td>
-            <td>Original Student ID</td>
-            <td>New Student ID</td>
-            <td></td>
+            <th>Forename</th>
+            <th>Surname</th>
+            <th>Date of Birth</th>
+            <th>Original Student ID</th>
+            <th>New Student ID</th>
+            <th></th>
         </tr>
         {tableRows}
     </>);
