@@ -21,14 +21,20 @@ export default function MergeList({students, onLinkClick}: MergeListProps ) {
     });
 
     return (<>
-        <tr>
-            <th>Forename</th>
-            <th>Surname</th>
-            <th>Date of Birth</th>
-            <th>Original Student ID</th>
-            <th>New Student ID</th>
-            <th></th>
-        </tr>
-        {tableRows}
+        <table>
+            <thead>
+                <tr>
+                    <th>Forename</th>
+                    <th>Surname</th>
+                    <th>Date of Birth</th>
+                    <th>Original Student ID</th>
+                    <th>New Student ID</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {tableRows}
+            </tbody>
+        </table>
     </>);
 }

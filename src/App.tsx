@@ -27,6 +27,7 @@ function App() {
   const [schoolId, setSchoolId] = useState<number>();
   const [dataRows, setDataRows] = useState<DataRow[]>([]);
   const [studentsToMerge, setStudentsToMerge] = useState<StudentToMerge[]>([]);
+  const [lowerIdIsNewStudent, setLowerIdIsNewStudent] = useState(true);
   
   function handleDataUploaded(data: DataRow[]) {
     setDataRows(data);
@@ -45,8 +46,16 @@ function App() {
           && student.Forename === currentStudent.Forename
           && student.Surname === currentStudent.Surname;
         })
+
+        if (!matchingStudent) {
+          continue;
+        }
+
+        const matchIsNewStudent = lowerIdIsNewStudent
+        ? matchingStudent.MISStudentId < currentStudent.MISStudentId
+        : matchingStudent.MISStudentId > currentStudent.MISStudentId
   
-        if (matchingStudent && matchingStudent.MISStudentId < currentStudent.MISStudentId) {
+        if (matchIsNewStudent) {
           const studentToMerge = new StudentToMerge;
           studentToMerge.MISStudentId = currentStudent.MISStudentId;
           studentToMerge.UPN = currentStudent.UPN;
@@ -80,6 +89,10 @@ function App() {
     setStudentsToMerge(nextStudentsToMerge);
   }
 
+  function handleNewStudentOrderChange(isLowerIdNewStudent: boolean) {
+    setLowerIdIsNewStudent(isLowerIdNewStudent);
+  }
+
   return (
     <>
       <h1>Student Merge Link Generator</h1>
@@ -92,6 +105,13 @@ function App() {
         <CSVUploader onDataUploaded={(data: DataRow[]) => handleDataUploaded(data)} />
       </div>
       <div className="card">
+        <div>  
+          <label htmlFor="lower-value-is-new">Lower ID is new student</label>
+          <input type="radio" id="lower-value-is-new" name="student-map-direction" checked={lowerIdIsNewStudent} onChange={() => handleNewStudentOrderChange(true)} />
+          
+          <label htmlFor="higher-value-is-new">Higher ID is new student</label>
+          <input type="radio" id="higher-value-is-new" name="student-map-direction" checked={!lowerIdIsNewStudent} onChange={() => handleNewStudentOrderChange(false)} />
+        </div>
         <button onClick={() => handleGenerateClick()} disabled={schoolId === undefined || dataRows.length < 1}>Generate</button>
       </div>
       <div className="card">
