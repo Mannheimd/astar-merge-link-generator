@@ -39,11 +39,6 @@ export default function CSVUploader({onDataUploaded}: CSVUploaderProps) {
               required: true,
             },
             {
-              name: "UPN",
-              key: "UPN",
-              required: true,
-            },
-            {
               name: "Forename",
               key: "Forename",
               required: true,
@@ -51,16 +46,6 @@ export default function CSVUploader({onDataUploaded}: CSVUploaderProps) {
             {
               name: "Surname",
               key: "Surname",
-              required: true,
-            },
-            {
-              name: "Year",
-              key: "YearGroup",
-              required: true,
-            },
-            {
-              name: "Reg",
-              key: "RegistrationGroup",
               required: true,
             },
             {

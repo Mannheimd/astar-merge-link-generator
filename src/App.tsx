@@ -42,9 +42,9 @@ function App() {
   
         const matchingStudent = dataRows.find((student) => {
           return student.MISStudentId !== currentStudent.MISStudentId
-          && student.DateOfBirth === currentStudent.DateOfBirth
-          && student.Forename === currentStudent.Forename
-          && student.Surname === currentStudent.Surname;
+          && student.DateOfBirth.toUpperCase() === currentStudent.DateOfBirth.toUpperCase()
+          && student.Forename.toUpperCase() === currentStudent.Forename.toUpperCase()
+          && student.Surname.toUpperCase() === currentStudent.Surname.toUpperCase();
         })
 
         if (!matchingStudent) {
